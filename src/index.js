@@ -1,10 +1,24 @@
+import dotenv from 'dotenv';
+import path from 'path';
 
+import connectDB from "./db/index.js"
 
-import express from "express"
-const app = express()
-
-
+// dotenv.config({
+//     path: "./env"
+// })
+dotenv.config({ path: path.join((process.cwd(), '.env')) });
+// dotenv.config()
 // setup database professionally
+
+connectDB()
+
+
+
+
+
+
+
+
 
 
 // this is an approach  - 1st
