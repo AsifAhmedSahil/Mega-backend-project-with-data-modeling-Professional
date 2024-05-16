@@ -1,11 +1,14 @@
-import mongoose from "mongoose";
-import {DB_NAME} from "./constants"
+
 
 import express from "express"
 const app = express()
 
 
-// this is an approach 
+// setup database professionally
+
+
+// this is an approach  - 1st
+/*
 (async()=>{
     try {
        await mongoose.connect(`${process.env.MONGODB_URL}/${DB_NAME}`)
@@ -23,3 +26,5 @@ const app = express()
         
     }
 })()
+
+*/
