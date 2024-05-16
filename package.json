@@ -1,0 +1,15 @@
+{
+  "name": "mega-backend-project",
+  "version": "1.0.0",
+  "description": "mega backend project with core functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "author": "asif ahmed sahil",
+  "license": "ISC"
+}
