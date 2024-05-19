@@ -5,16 +5,7 @@
 // import { ApiResponse } from "../utils/ApiResponse.js";
 
 // const registerUser = asyncHandler(async (req,res) =>{
-//     // *************steps for create user*******
-//     // get user data from frontend 
-//     // validate user data - all field
-//     // check user already exist or not - userName , email
-//     // check images and avater properly
-//     // upload them to cloudinary and accept  url from them
-//     // create user object  - create entry in db
-//     // remove password and refresh token for frontend bcoz it is encrypted
-//     // check for user creation
-//     // return response properly
+
 
 //     const {fullName,username,email,password} = req.body
 //     if(
@@ -84,7 +75,21 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
+
+    //     // *************steps for create user*******
+//     // get user data from frontend 
+//     // validate user data - all field
+//     // check user already exist or not - userName , email
+//     // check images and avater properly
+//     // upload them to cloudinary and accept  url from them
+//     // create user object  - create entry in db
+//     // remove password and refresh token for frontend bcoz it is encrypted
+//     // check for user creation
+//     // return response properly
+
+
     // Extract user data from request body
+
     const { fullName, userName, email, password } = req.body;
 
     // Validate required fields
@@ -152,4 +157,39 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(201).json(new ApiResponse(200, createdUser, "User created successfully."));
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req,res) =>{
+    // ***********steps define*********
+    // req.body => data
+    // username or email
+    // find the user
+    // password check
+    // access and refresh token
+    // send cookie
+
+    const {email,password,userName} = req.body;
+    if(!userName || !email){
+        throw new ApiError(400,"userName or email required!")
+    }
+    // find user from mongodb
+    const user = await User.findOne({
+        $or: [
+            {userName},
+            {email}
+        ]
+    })
+
+    if(!user){
+        throw new ApiError(404,"user does not found!")
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+
+    if(!isPasswordValid){
+        throw new ApiError(401,"invalid user credentials (password incorrect!)")
+    }
+})
+
+export { 
+    registerUser,
+    loginUser
+ };
