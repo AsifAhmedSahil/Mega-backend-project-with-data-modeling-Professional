@@ -11,8 +11,10 @@ dotenv.config({ path: path.join((process.cwd(), '.env')) });
 
 connectDB()
 .then(()=>{
-    app.listen(process.env.PORT | 5000, () =>{
+    app.listen(process.env.PORT | 8000, () =>{
+        // console.log(process.env.PORT)
         console.log(`server is running on port: ${process.env.PORT}`)
+        
     });
 })
 .catch((err)=>{
