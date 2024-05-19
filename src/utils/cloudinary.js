@@ -23,6 +23,8 @@ const uploadOnCloudinary = async (localFilePath) => {
         })
         // file has been uploaded successfull
         //console.log("file is uploaded on cloudinary ", response.url);
+
+        // this unlinkSync is for delete automatic image from public folder
         fs.unlinkSync(localFilePath)
         return response;
 
