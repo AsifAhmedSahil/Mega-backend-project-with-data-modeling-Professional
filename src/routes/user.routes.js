@@ -22,7 +22,8 @@
 // export default router;
 
 import { Router } from "express";
-import { loggedOutUser, loginUser, registerUser } from "../controllers/user.controller.js";
+// import {  loginUser, loggedOutUser, registerUser } from "../controllers/user.controller.js";
+import {  loginUser,  registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"; // Importing 'upload' using named import
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -40,6 +41,7 @@ router.post(
 router.route("/login").post(loginUser)
 
 // secured route
-router.route("/logout").post(verifyJWT,loggedOutUser)
+// router.route("/logout").post(loggedOutUser)
+router.route("/logout").post()
 
 export default router;
