@@ -23,7 +23,7 @@
 
 import { Router } from "express";
 // import {  loginUser, loggedOutUser, registerUser } from "../controllers/user.controller.js";
-import {  loginUser,  registerUser } from "../controllers/user.controller.js";
+import {    registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"; // Importing 'upload' using named import
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -38,7 +38,7 @@ router.post(
   registerUser
 );
 
-router.route("/login").post(loginUser)
+// router.route("/login").post(loginUser)
 
 // secured route
 // router.route("/logout").post(loggedOutUser)
