@@ -8,8 +8,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 const generateAccessAndRefreshToken = async(userId) =>{
     try {
         const user = await User.findById(userId);
-        const accessToken = user.generateAccessToken;
-        const refreshToken = user.generateRefreshToken;
+        const accessToken = user.generateAccessToken();
+        const refreshToken = user.generateRefreshToken();
 
         user.refreshToken = refreshToken
         await user.save({validateBeforeSave: false})
@@ -106,8 +106,54 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(201).json(new ApiResponse(200, createdUser, "User created successfully."));
 });
 
+const loginUser = asyncHandler(async (req,res) =>{
+    const {email,userName,password} = req.body
+
+    if(!userName || !email){
+        throw new ApiError(400,'username or email is required')
+    }
+
+    const user = await User.findOne({
+        $or: [{ userName }, { email }]
+    })
+
+    if(!user){
+        throw new ApiError(404,'User does not exist')
+    }
+
+    const isPasswordCorrect = await user.isPasswordCorrect(password)
+
+    if(!isPasswordCorrect){
+        throw new ApiError(401,'Invalid user credentials')
+    }
+
+    const {accessToken,refreshToken} = await generateAccessAndRefreshToken(user._id)
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
+    const options = {
+        httpOnly: true,
+        secure:true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken" , accessToken,options)
+    .cookie("refreshToken",refreshToken,options)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user: loggedInUser,accessToken,refreshToken
+            },
+            "User logged in successfully "
+        )
+    )
+
+})
+
 export { 
     registerUser,
-    // loginUser,
+    loginUser,
     // loggedOutUser
  };
