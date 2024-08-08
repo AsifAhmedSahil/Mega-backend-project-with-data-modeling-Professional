@@ -25,16 +25,16 @@ const generateAccessAndRefreshToken = async(userId) =>{
 
 const registerUser = asyncHandler(async (req, res) => {
 
-    //     // *************steps for create user*******
-//     // get user data from frontend 
-//     // validate user data - all field
-//     // check user already exist or not - userName , email
-//     // check images and avater properly
-//     // upload them to cloudinary and accept  url from them
-//     // create user object  - create entry in db
-//     // remove password and refresh token for frontend bcoz it is encrypted
-//     // check for user creation
-//     // return response properly
+        // *************steps for create user*******
+    // get user data from frontend 
+    // validate user data - all field
+    // check user already exist or not - userName , email
+    // check images and avater properly
+    // upload them to cloudinary and accept  url from them
+    // create user object  - create entry in db
+    // remove password and refresh token for frontend bcoz it is encrypted
+    // check for user creation
+    // return response properly 
 
 
     // Extract user data from request body
@@ -88,7 +88,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         fullName,
         avatar: avatar.url,
-        coverImage: coverImage.url || "",
+        coverImage: coverImage?.url || "",
         email,
         password,
         userName: userName.toLowerCase(),
