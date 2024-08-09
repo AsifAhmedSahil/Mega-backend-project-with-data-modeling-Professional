@@ -16,6 +16,7 @@
   "author": "asif ahmed sahil",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5"
   },
